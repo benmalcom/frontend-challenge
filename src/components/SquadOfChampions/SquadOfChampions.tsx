@@ -1,7 +1,6 @@
 import { Stack } from '@mui/material';
 import debounce from 'lodash.debounce';
 import { useCallback, useMemo, useState } from 'react';
-import GlobalContextProvider from 'components/GlobalContext';
 import Champions from 'components/SquadOfChampions/Champions/Champions';
 import CharacterTable from 'components/SquadOfChampions/CharacterTable';
 import Filters from 'components/SquadOfChampions/Filters';
@@ -53,39 +52,26 @@ export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
   const hasSelectedSquad = teamsIds.length > 0;
 
   return (
-    <GlobalContextProvider
-      characters={characters}
-      tags={allCharacterTags}
-      isTagSelected={isTagSelected}
-      isTeamMember={isTeamMember}
-      onRemoveTeamMember={handleTeamMemberRemove}
-      onSelectTeamMember={handleCharacterToggle}
-      onClearTags={onClearTags}
-      onTagToggle={onTagToggle}
-      onTextFilter={onTextFilter}
-      teamsIds={teamsIds}
-    >
-      <Stack sx={{ flex: 1, overflowY: 'auto' }}>
-        {hasSelectedSquad && (
-          <Champions
-            characters={characters.filter(character => teamsIds.includes(character.id))}
-            onRemove={handleTeamMemberRemove}
-          />
-        )}
-        <Filters
-          onClearTags={onClearTags}
-          tags={allCharacterTags}
-          onTextFilter={handleTextFilter}
-          onTagsFilter={handleTagToggle}
-          isTagSelected={isTagSelected}
+    <Stack sx={{ flex: 1, overflowY: 'auto' }}>
+      {hasSelectedSquad && (
+        <Champions
+          characters={characters.filter(character => teamsIds.includes(character.id))}
+          onRemove={handleTeamMemberRemove}
         />
-        <CharacterTable
-          onSelect={handleCharacterToggle}
-          characters={filteredCharacters}
-          isTeamMember={isTeamMember}
-        />
-      </Stack>
-    </GlobalContextProvider>
+      )}
+      <Filters
+        onClearTags={onClearTags}
+        tags={allCharacterTags}
+        onTextFilter={handleTextFilter}
+        onTagToggle={handleTagToggle}
+        isTagSelected={isTagSelected}
+      />
+      <CharacterTable
+        onSelect={handleCharacterToggle}
+        characters={filteredCharacters}
+        isTeamMember={isTeamMember}
+      />
+    </Stack>
   );
 };
 

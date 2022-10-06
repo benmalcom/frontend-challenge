@@ -18,7 +18,11 @@ export const CharacterListItem = ({
   return (
     <Grid
       container
-      sx={{ width: '100%', backgroundColor: isSelected ? '#EDF5FF' : 'transparent' }}
+      sx={{
+        width: '100%',
+        height: '92px',
+        backgroundColor: isSelected ? '#EDF5FF' : 'transparent',
+      }}
       columnGap="26px"
     >
       <Grid
@@ -26,7 +30,7 @@ export const CharacterListItem = ({
         direction="row"
         alignItems="center"
         sx={{
-          height: '92px',
+          height: '100%',
           padding: '0 10px',
           ...characterTableColumns.Character.props.sx,
         }}
@@ -58,7 +62,7 @@ export const CharacterListItem = ({
           key={ability.abilityName}
           item
           sx={{
-            height: '92px',
+            height: '100%',
             ...characterTableColumns[ability.abilityName].props.sx,
             justifyContent: 'center',
           }}

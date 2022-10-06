@@ -8,7 +8,7 @@ interface ChampionsProps {
   characters: Character[];
 }
 export const Champions = ({ characters, onRemove }: ChampionsProps): JSX.Element => {
-  const avg = characters?.reduce((acc: { [key: string]: number }, current) => {
+  const avg = characters.reduce((acc: { [key: string]: number }, current) => {
     const abilities = sortAbilityValues(current.abilities);
     abilities.forEach(({ abilityName, abilityScore }) => {
       acc[abilityName] = (acc[abilityName] ?? 0) + abilityScore;

@@ -9,11 +9,14 @@
     "@mui/material": "^5.10.8",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
+    "install": "^0.13.0",
     "lodash.debounce": "^4.0.8",
     "normalize.css": "^8.0.1",
+    "npm": "^8.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-virtuoso": "^2.19.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -51,6 +54,7 @@
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@types/react-virtualized": "^9.21.21",
     "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.38.1",
     "eslint": "^8.24.0",

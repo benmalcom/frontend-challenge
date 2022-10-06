@@ -1,8 +1,8 @@
 import styled from '@emotion/styled/macro';
-import { Stack, Typography, Avatar, Grid, Box } from '@mui/material';
+import { Typography, Avatar, Box } from '@mui/material';
 import { Character } from 'utils/types';
 
-const StyledOverlay = styled(Box)(({ theme }) => ({
+const StyledOverlay = styled(Box)(() => ({
   width: '100%',
   height: '100%',
   zIndex: 1,
