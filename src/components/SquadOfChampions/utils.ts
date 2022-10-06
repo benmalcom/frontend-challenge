@@ -4,6 +4,7 @@ export interface CharacterTableProps {
   onSelect(id: number): void;
   isTeamMember(id: number): boolean;
   characters: Character[];
+  isTeamComplete: boolean;
 }
 
 export const extractTagsFromCharacters = (items: Character[]) =>

@@ -12,6 +12,7 @@ export const CharacterList = ({
   characters,
   isTeamMember,
   onSelect,
+  isTeamComplete,
 }: CharacterTableProps): JSX.Element => {
   const multiplier = getHeightMultiplier(characters.length);
   return (
@@ -34,6 +35,7 @@ export const CharacterList = ({
                 character={character}
                 isSelected={isTeamMember(character.id)}
                 onSelect={onSelect}
+                isTeamComplete={isTeamComplete}
               />
             );
           }}

@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import debounce from 'lodash.debounce';
 import { useCallback, useMemo, useState } from 'react';
-import Champions from 'components/SquadOfChampions/Champions/Champions';
+import ChampionsList from 'components/SquadOfChampions/Champions/ChampionsList';
 import CharacterTable from 'components/SquadOfChampions/CharacterTable';
 import Filters from 'components/SquadOfChampions/Filters';
 import useFilter from 'components/SquadOfChampions/useFilter';
@@ -49,16 +49,14 @@ export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
     setTeamIds(selected => selected.filter(item => item !== id));
 
   const isTeamMember = useCallback((id: number) => teamsIds.includes(id), [teamsIds]);
-  const hasSelectedTeam = teamsIds.length > 0;
+  const isTeamComplete = teamsIds?.length >= 6;
 
   return (
     <Stack sx={{ flex: 1, overflowY: 'auto' }}>
-      {hasSelectedTeam && (
-        <Champions
-          characters={characters.filter(character => teamsIds.includes(character.id))}
-          onRemove={handleTeamMemberRemove}
-        />
-      )}
+      <ChampionsList
+        characters={characters.filter(character => teamsIds.includes(character.id))}
+        onRemove={handleTeamMemberRemove}
+      />
       <Filters
         onClearTags={onClearTags}
         tags={allCharacterTags}
@@ -67,6 +65,7 @@ export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
         isTagSelected={isTagSelected}
       />
       <CharacterTable
+        isTeamComplete={isTeamComplete}
         onSelect={handleCharacterToggle}
         characters={filteredCharacters}
         isTeamMember={isTeamMember}

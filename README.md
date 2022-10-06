@@ -16,7 +16,7 @@
 
 ### Challenge
 
-Build a very basic single-page application to create a SquadOfChampions of Champions.
+Build a very basic single-page application to create a SquadOfChampions of ChampionsList.
 
 Using the provided Figma design and data files the application should:
 

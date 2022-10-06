@@ -16,7 +16,6 @@ const Filters = ({
   isTagSelected,
   onClearTags,
 }: FiltersProps): JSX.Element => {
-  console.log('Filter rendering...');
   return (
     <Stack
       sx={{

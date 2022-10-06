@@ -1,1 +1,1 @@
-export { default as Champions } from './Champions';
+export { default as ChampionsList } from './ChampionsList';

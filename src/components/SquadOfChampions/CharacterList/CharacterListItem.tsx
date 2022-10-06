@@ -7,13 +7,15 @@ import { Character } from 'utils/types';
 type ListItemProps = {
   character: Character;
   onSelect(id: number): void;
-  isSelected?: boolean;
+  isSelected: boolean;
+  isTeamComplete: boolean;
 };
 
 export const CharacterListItem = ({
   character,
   onSelect,
   isSelected,
+  isTeamComplete,
 }: ListItemProps): JSX.Element => {
   return (
     <Grid
@@ -37,6 +39,7 @@ export const CharacterListItem = ({
         columnGap="15px"
       >
         <Checkbox
+          disabled={isTeamComplete && !isSelected}
           checked={isSelected}
           onChange={() => onSelect(character.id)}
           inputProps={{ 'aria-label': 'controlled' }}
