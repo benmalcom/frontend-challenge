@@ -1,5 +1,5 @@
 import { Paper, Stack, Typography } from '@mui/material';
-import ListItem from 'components/SquadOfChampions/CharacterList/ListItem';
+import ListItem from 'components/SquadOfChampions/CharacterList/CharacterListItem';
 import { CharacterTableProps } from 'components/SquadOfChampions/utils';
 
 export const CharacterList = ({
@@ -15,13 +15,12 @@ export const CharacterList = ({
         </Typography>
       )}
       {characters.map(character => {
-        const isSelected = isCharacterSelected(character.id);
         return (
           <ListItem
             key={character.id}
             character={character}
             onSelect={onSelect}
-            isSelected={isSelected}
+            isSelected={isCharacterSelected(character.id)}
           />
         );
       })}

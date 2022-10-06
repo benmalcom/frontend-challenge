@@ -13,54 +13,59 @@ interface SquadProps {
 }
 
 export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
-  const [selectedSquad, setSelectedSquad] = useState<{ [key: number]: Character }>({});
-  const characters = useMemo(() => data, []);
+  const [selectedSquad, setSelectedSquad] = useState<number[]>([]);
+  const characters = useMemo(() => data, [data]);
 
   const { filterFns, onTextFilter, onTagFilter, onClearTags, isTagSelected } = useFilter(
     { text: '', tags: [] },
-    Object.keys(selectedSquad)
+    selectedSquad
   );
 
-  const allCharacterTags = useMemo(
-    () => extractTagsFromCharacters(data),
-    [data, extractTagsFromCharacters]
-  );
+  const allCharacterTags = useMemo(() => extractTagsFromCharacters(data), [data]);
 
-  const filteredCharacters = characters.filter(item => filterFns.every(fn => fn(item)));
-  const handleTextFilter = (text: string) => onTextFilter(text);
-  const debouncedHandleTextFilter = useCallback(debounce(handleTextFilter, 300), []);
+  const filteredCharacters = useMemo(
+    () => characters.filter(item => filterFns.every(fn => fn(item))),
+    [characters, filterFns]
+  );
+  const handleTextFilter = debounce((text: string) => onTextFilter(text), 300);
   const handleTagToggle = (tagName: string) => onTagFilter(tagName);
 
-  const handleCharacterToggle = (item: Character) => {
-    const selectedCopy = { ...selectedSquad };
-    if (selectedCopy[item.id]) {
-      delete selectedCopy[item.id];
-    } else {
-      if (Object.values(selectedCopy).length >= 6) return;
-      selectedCopy[item.id] = item;
-    }
-    setSelectedSquad(selectedCopy);
-  };
+  const handleCharacterToggle = useCallback(
+    (id: number) => {
+      const selectedCopy = [...selectedSquad];
+      if (selectedCopy.includes(id)) {
+        const index = selectedCopy.indexOf(id);
+        selectedCopy.splice(index, 1);
+      } else {
+        if (selectedCopy.length >= 6) return;
+        selectedCopy.push(id);
+      }
+      setSelectedSquad(selectedCopy);
+    },
+    [selectedSquad]
+  );
 
   const handleTeamMemberRemove = (id: number) =>
-    setSelectedSquad(selected => {
-      const selectedCopy = { ...selected };
-      delete selectedCopy[id];
-      return selectedCopy;
-    });
+    setSelectedSquad(selected => selected.filter(item => item !== id));
 
-  const isCharacterSelected = (id: number) => !!selectedSquad[id];
-  const hasSelectedSquad = Object.values(selectedSquad).length > 0;
+  const isCharacterSelected = useCallback(
+    (id: number) => selectedSquad.includes(id),
+    [selectedSquad]
+  );
+  const hasSelectedSquad = selectedSquad.length > 0;
 
   return (
     <Stack sx={{ flex: 1, overflowY: 'auto' }}>
       {hasSelectedSquad && (
-        <Champions characters={Object.values(selectedSquad)} onRemove={handleTeamMemberRemove} />
+        <Champions
+          characters={characters.filter(character => selectedSquad.includes(character.id))}
+          onRemove={handleTeamMemberRemove}
+        />
       )}
       <Filters
         onClearTags={onClearTags}
         tags={allCharacterTags}
-        onTextFilter={debouncedHandleTextFilter}
+        onTextFilter={handleTextFilter}
         onTagsFilter={handleTagToggle}
         isTagSelected={isTagSelected}
       />

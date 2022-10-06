@@ -6,7 +6,7 @@ type FilterState = {
   tags: string[];
 };
 
-const useFilter = (initialFilter: FilterState, selectedTeamIds: string[]) => {
+const useFilter = (initialFilter: FilterState, selectedTeamIds: number[]) => {
   const [filter, setFilter] = useState<FilterState>(initialFilter);
 
   const filterFns = useMemo(() => {
@@ -28,7 +28,7 @@ const useFilter = (initialFilter: FilterState, selectedTeamIds: string[]) => {
     // Check if my team tag is selected;
     const isMyTeamTagSelected = filter.tags.includes('my_team');
     if (isMyTeamTagSelected) {
-      filterFnsArray.unshift(({ id }: Character) => selectedTeamIds.includes(String(id)));
+      filterFnsArray.unshift(({ id }: Character) => selectedTeamIds.includes(id));
     }
     return filterFnsArray;
   }, [filter, selectedTeamIds]);

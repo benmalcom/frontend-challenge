@@ -1,7 +1,7 @@
 import { Character, CharacterAbility } from 'utils/types';
 
 export interface CharacterTableProps {
-  onSelect(character: Character): void;
+  onSelect(id: number): void;
   isCharacterSelected(id: number): boolean;
   characters: Character[];
 }
