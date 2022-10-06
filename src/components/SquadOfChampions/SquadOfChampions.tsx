@@ -49,16 +49,13 @@ export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
     setTeamIds(selected => selected.filter(item => item !== id));
 
   const isTeamMember = useCallback((id: number) => teamsIds.includes(id), [teamsIds]);
-  const hasSelectedSquad = teamsIds.length > 0;
 
   return (
     <Stack sx={{ flex: 1, overflowY: 'auto' }}>
-      {hasSelectedSquad && (
-        <Champions
-          characters={characters.filter(character => teamsIds.includes(character.id))}
-          onRemove={handleTeamMemberRemove}
-        />
-      )}
+      <Champions
+        characters={characters.filter(character => teamsIds.includes(character.id))}
+        onRemove={handleTeamMemberRemove}
+      />
       <Filters
         onClearTags={onClearTags}
         tags={allCharacterTags}

@@ -15,8 +15,20 @@ export const Champions = ({ characters, onRemove }: ChampionsProps): JSX.Element
     });
     return acc;
   }, {});
+  const hasSelectedTeam = characters.length > 0;
+
   return (
-    <Stack alignItems="center">
+    <Stack
+      alignItems="center"
+      sx={{
+        overflow: 'hidden',
+        height: hasSelectedTeam ? 'auto' : 0,
+        opacity: hasSelectedTeam ? 1 : 0,
+        transition: hasSelectedTeam
+          ? 'height 0ms 0ms, opacity 200ms 0ms'
+          : 'height 0ms 400ms, opacity 300ms 0ms',
+      }}
+    >
       <Typography variant="h6" component="h6" sx={{ fontSize: '24px' }}>
         Your champions!
       </Typography>
