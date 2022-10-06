@@ -1,5 +1,5 @@
+import CheckIcon from '@mui/icons-material/Check';
 import { Box } from '@mui/material';
-
 interface TagProps {
   text: string;
   onClick?: () => void;
@@ -25,6 +25,7 @@ export const Tag = ({ text, onClick, selected }: TagProps): JSX.Element => {
         textTransform: 'capitalize',
       }}
     >
+      {selected && <CheckIcon fontSize="small" />}
       {text}
     </Box>
   );
