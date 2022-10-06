@@ -15,6 +15,8 @@ type FilterState = {
   tags: string[];
 };
 
+const MY_TEAM_TAG_NAME = 'my_team';
+
 export const Squad = ({ data }: SquadProps): JSX.Element => {
   const [selectedSquad, setSelectedSquad] = useState<{ [key: number]: Character }>({});
   const characters = useMemo(() => data, []);
@@ -44,12 +46,21 @@ export const Squad = ({ data }: SquadProps): JSX.Element => {
   const debouncedHandleTextFilter = useCallback(debounce(handleTextFilter, 300), []);
 
   const handleTagToggle = (tagName: string) => {
-    const tags = filter.tags.slice();
+    let tags = filter.tags.slice();
     if (tags.includes(tagName)) {
       const index = tags.findIndex(item => item === tagName);
       tags.splice(index, 1);
     } else {
-      tags.push(tagName);
+      // Remove my_team if other tags exist
+      if (tagName === 'my_team') {
+        tags = [tagName];
+      } else {
+        tags.push(tagName);
+        if (tags.length > 1 && tags.includes('my_team')) {
+          const index = tags.findIndex(item => item === 'my_team');
+          tags.splice(index, 1);
+        }
+      }
     }
     setFilter(state => ({ ...state, tags }));
   };
