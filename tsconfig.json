@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "data/*": ["data/*"],
+      "utils/*": ["utils/*"],
+      "components/*": ["components/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",
