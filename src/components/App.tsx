@@ -1,6 +1,6 @@
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import { Header } from 'components/layout';
-import Squad from 'components/Squad/Squad';
+import SquadOfChampions from 'components/SquadOfChampions/SquadOfChampions';
 import jsonData from 'data/characters.json';
 import { MAX_WIDTH } from 'utils/constants';
 import type { Character } from 'utils/types';
@@ -13,17 +13,25 @@ function App() {
       maxWidth={false}
       disableGutters
       sx={{
-        width: '100%',
-        backgroundColor: '#F5FDFF',
-        maxWidth: MAX_WIDTH,
+        width: '100vw',
         height: '100vh',
-        maxHeight: '1080px',
         display: 'flex',
-        flexDirection: 'column',
+        justifyContent: 'center',
+        overflowY: 'scroll',
       }}
     >
-      <Header />
-      <Squad data={data.slice(0, 200)} />
+      <Stack
+        sx={{
+          width: '100%',
+          backgroundColor: '#F5FDFF',
+          maxWidth: MAX_WIDTH,
+          height: '100%',
+          maxHeight: '1080px',
+        }}
+      >
+        <Header />
+        <SquadOfChampions data={data} />
+      </Stack>
     </Container>
   );
 }

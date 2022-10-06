@@ -1,6 +1,6 @@
 import { Stack, Typography, Grid } from '@mui/material';
-import { CharacterList } from 'components/Squad/CharacterList/List';
-import { characterTableColumns, CharacterTableProps } from 'components/Squad/utils';
+import { CharacterList } from 'components/SquadOfChampions/CharacterList/List';
+import { characterTableColumns, CharacterTableProps } from 'components/SquadOfChampions/utils';
 
 const CharacterListHeader = () => (
   <Grid container sx={{ width: '1080px', marginBottom: '10px' }} columnGap="26px">

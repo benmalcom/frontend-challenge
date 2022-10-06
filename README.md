@@ -16,14 +16,14 @@
 
 ### Challenge
 
-Build a very basic single-page application to create a Squad of Champions.
+Build a very basic single-page application to create a SquadOfChampions of Champions.
 
 Using the provided Figma design and data files the application should:
 
 1. Show a list of all Characters
 2. Allow a user to filter the list of Characters
 3. Allow a user to select up to 6 Characters
-4. Show the selected Squad of Characters
+4. Show the selected SquadOfChampions of Characters
 
 #### What's provided
 

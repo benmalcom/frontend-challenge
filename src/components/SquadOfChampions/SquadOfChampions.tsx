@@ -1,18 +1,18 @@
 import { Stack } from '@mui/material';
 import debounce from 'lodash.debounce';
 import { useCallback, useMemo, useState } from 'react';
-import Champions from 'components/Squad/Champions/Champions';
-import CharacterTable from 'components/Squad/CharacterTable';
-import Filters from 'components/Squad/Filters';
-import useFilter from 'components/Squad/useFilter';
-import { extractTagsFromCharacters } from 'components/Squad/utils';
+import Champions from 'components/SquadOfChampions/Champions/Champions';
+import CharacterTable from 'components/SquadOfChampions/CharacterTable';
+import Filters from 'components/SquadOfChampions/Filters';
+import useFilter from 'components/SquadOfChampions/useFilter';
+import { extractTagsFromCharacters } from 'components/SquadOfChampions/utils';
 import { Character } from 'utils/types';
 
 interface SquadProps {
   data: Character[];
 }
 
-export const Squad = ({ data }: SquadProps): JSX.Element => {
+export const SquadOfChampions = ({ data }: SquadProps): JSX.Element => {
   const [selectedSquad, setSelectedSquad] = useState<{ [key: number]: Character }>({});
   const characters = useMemo(() => data, []);
 
@@ -53,7 +53,7 @@ export const Squad = ({ data }: SquadProps): JSX.Element => {
   const hasSelectedSquad = Object.values(selectedSquad).length > 0;
 
   return (
-    <Stack sx={{ flex: 1, overflowY: 'scroll' }}>
+    <Stack sx={{ flex: 1, overflowY: 'auto' }}>
       {hasSelectedSquad && (
         <Champions characters={Object.values(selectedSquad)} onRemove={handleTeamMemberRemove} />
       )}
@@ -73,4 +73,4 @@ export const Squad = ({ data }: SquadProps): JSX.Element => {
   );
 };
 
-export default Squad;
+export default SquadOfChampions;

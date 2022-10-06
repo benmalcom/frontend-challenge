@@ -1,6 +1,6 @@
 import { Stack, Typography, Grid } from '@mui/material';
-import ChampionItem from 'components/Squad/Champions/ChampionItem';
-import { sortAbilityValues } from 'components/Squad/utils';
+import ChampionItem from 'components/SquadOfChampions/Champions/ChampionItem';
+import { sortAbilityValues } from 'components/SquadOfChampions/utils';
 import { Character } from 'utils/types';
 
 interface ChampionsProps {

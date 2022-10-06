@@ -4,7 +4,7 @@ import {
   characterTableColumns,
   CharacterTableProps,
   sortAbilityValues,
-} from 'components/Squad/utils';
+} from 'components/SquadOfChampions/utils';
 
 export const CharacterList = ({
   characters,
