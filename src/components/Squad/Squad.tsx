@@ -15,52 +15,54 @@ type FilterState = {
   tags: string[];
 };
 
-const MY_TEAM_TAG_NAME = 'my_team';
-
 export const Squad = ({ data }: SquadProps): JSX.Element => {
   const [selectedSquad, setSelectedSquad] = useState<{ [key: number]: Character }>({});
   const characters = useMemo(() => data, []);
 
   const [filter, setFilter] = useState<FilterState>({ text: '', tags: [] });
 
+  const allCharacterTags = useMemo(
+    () => extractTagsFromCharacters(data),
+    [data, extractTagsFromCharacters]
+  );
+
   const filterFns = useMemo(() => {
-    // Check if my team tag is selected;
-    const isMyTeamTagSelected = filter.tags.length === 1 && filter.tags[0] === 'my_team';
-    if (isMyTeamTagSelected) {
-      const currentTeamIds = Object.keys(selectedSquad);
-      return [({ id }: Character) => currentTeamIds.includes(String(id))];
-    }
-    return [
+    const filterFnsArray = [
       ({ name, tags }: Character) =>
         name.toLowerCase().startsWith(filter.text.toLowerCase()) ||
         tags?.some(tag => tag.tag_name.toLowerCase().includes(filter.text.toLowerCase())),
 
-      (listItem: Character) =>
-        !filter.tags.length ||
-        listItem.tags?.some(tagItem => filter.tags.includes(tagItem.tag_name.toLowerCase())),
+      ({ tags }: Character) => {
+        // Remove my_team tag before check
+        const filteredFilterTags = filter.tags.filter(tagName => tagName !== 'my_team');
+        return (
+          !filteredFilterTags.length ||
+          tags?.some(tagItem => filteredFilterTags.includes(tagItem.tag_name.toLowerCase()))
+        );
+      },
     ];
+
+    // Check if my team tag is selected;
+    const isMyTeamTagSelected = filter.tags.includes('my_team');
+    if (isMyTeamTagSelected) {
+      const currentTeamIds = Object.keys(selectedSquad);
+      filterFnsArray.unshift(({ id }: Character) => currentTeamIds.includes(String(id)));
+    }
+    return filterFnsArray;
   }, [filter, selectedSquad]);
+
   const filteredCharacters = characters.filter(item => filterFns.every(fn => fn(item)));
 
   const handleTextFilter = (text: string) => setFilter(state => ({ ...state, text }));
   const debouncedHandleTextFilter = useCallback(debounce(handleTextFilter, 300), []);
 
   const handleTagToggle = (tagName: string) => {
-    let tags = filter.tags.slice();
+    const tags = filter.tags.slice();
     if (tags.includes(tagName)) {
       const index = tags.findIndex(item => item === tagName);
       tags.splice(index, 1);
     } else {
-      // Remove my_team if other tags exist
-      if (tagName === 'my_team') {
-        tags = [tagName];
-      } else {
-        tags.push(tagName);
-        if (tags.length > 1 && tags.includes('my_team')) {
-          const index = tags.findIndex(item => item === 'my_team');
-          tags.splice(index, 1);
-        }
-      }
+      tags.push(tagName);
     }
     setFilter(state => ({ ...state, tags }));
   };
@@ -95,7 +97,7 @@ export const Squad = ({ data }: SquadProps): JSX.Element => {
       )}
       <Filters
         onClearTags={onClearTags}
-        tags={extractTagsFromCharacters(data)}
+        tags={allCharacterTags}
         onTextFilter={debouncedHandleTextFilter}
         onTagsFilter={handleTagToggle}
         isTagSelected={isTagSelected}
