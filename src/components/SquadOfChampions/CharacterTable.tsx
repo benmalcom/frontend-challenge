@@ -1,5 +1,5 @@
 import { Stack, Typography, Grid } from '@mui/material';
-import { CharacterList } from 'components/SquadOfChampions/CharacterList/List';
+import { CharacterList } from 'components/SquadOfChampions/CharacterList';
 import { characterTableColumns, CharacterTableProps } from 'components/SquadOfChampions/utils';
 
 const CharacterListHeader = () => (

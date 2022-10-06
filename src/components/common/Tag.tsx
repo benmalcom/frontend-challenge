@@ -10,6 +10,7 @@ export const Tag = ({ text, onClick, selected }: TagProps): JSX.Element => {
     <Box
       component="div"
       onClick={onClick}
+      data-testid="tag"
       sx={{
         backgroundColor: selected ? '#217AFF' : '#FFFFFF',
         color: selected ? '#FFFFFF' : '#217AFF',
@@ -25,7 +26,7 @@ export const Tag = ({ text, onClick, selected }: TagProps): JSX.Element => {
         textTransform: 'capitalize',
       }}
     >
-      {selected && <CheckIcon fontSize="small" />}
+      {selected && <CheckIcon data-testid="check-mark" fontSize="small" />}
       {text}
     </Box>
   );
