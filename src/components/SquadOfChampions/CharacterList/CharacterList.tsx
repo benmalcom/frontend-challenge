@@ -5,7 +5,7 @@ import { CharacterTableProps } from 'components/SquadOfChampions/utils';
 export const CharacterList = ({
   characters,
   onSelect,
-  isCharacterSelected,
+  isTeamMember,
 }: CharacterTableProps): JSX.Element => (
   <Paper elevation={2} sx={{ padding: '5px 8px', boxSizing: 'border-box' }}>
     <Stack sx={{ width: '1080px', maxHeight: '272px', overflowY: 'auto' }}>
@@ -20,7 +20,7 @@ export const CharacterList = ({
             key={character.id}
             character={character}
             onSelect={onSelect}
-            isSelected={isCharacterSelected(character.id)}
+            isSelected={isTeamMember(character.id)}
           />
         );
       })}

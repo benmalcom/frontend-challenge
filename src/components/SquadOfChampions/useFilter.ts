@@ -35,7 +35,7 @@ const useFilter = (initialFilter: FilterState, selectedTeamIds: number[]) => {
 
   const onTextFilter = (text: string) => setFilter(state => ({ ...state, text }));
 
-  const onTagFilter = (tagName: string) => {
+  const onTagToggle = (tagName: string) => {
     const tags = filter.tags.slice();
     if (tags.includes(tagName)) {
       const index = tags.findIndex(item => item === tagName);
@@ -50,7 +50,7 @@ const useFilter = (initialFilter: FilterState, selectedTeamIds: number[]) => {
 
   const isTagSelected = (tagName: string) => filter.tags.includes(tagName);
 
-  return { onTextFilter, onTagFilter, filter, onClearTags, isTagSelected, filterFns };
+  return { onTextFilter, onTagToggle, filter, onClearTags, isTagSelected, filterFns };
 };
 
 export default useFilter;

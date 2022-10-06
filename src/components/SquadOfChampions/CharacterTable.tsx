@@ -17,7 +17,7 @@ const CharacterListHeader = () => (
 export const CharacterTable = ({
   characters,
   onSelect,
-  isCharacterSelected,
+  isTeamMember,
 }: CharacterTableProps): JSX.Element => {
   return (
     <Stack
@@ -30,11 +30,7 @@ export const CharacterTable = ({
       }}
     >
       <CharacterListHeader />
-      <CharacterList
-        characters={characters}
-        onSelect={onSelect}
-        isCharacterSelected={isCharacterSelected}
-      />
+      <CharacterList characters={characters} onSelect={onSelect} isTeamMember={isTeamMember} />
     </Stack>
   );
 };
